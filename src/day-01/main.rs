@@ -13,17 +13,15 @@ fn main() -> Result<(), Box<dyn Error>> {
     }
 
     /* Sort the lists. */
-    let mut left_sorted = left.clone();
-    let mut right_sorted = right.clone();
-    left_sorted.sort();
-    right_sorted.sort();
+    left.sort();
+    right.sort();
 
     let mut output = 0;
     let mut similarity = 0;
 
     /* Loop over the array */
-    for (i, left_value) in left_sorted.iter().enumerate() {
-        let right_value = right_sorted[i];
+    for (i, left_value) in left.iter().enumerate() {
+        let right_value = right[i];
 
         /* Calculate the first score */
         output += if *left_value > right_value {
@@ -33,8 +31,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         };
 
         /* Calculate the similarity score */
-        similarity +=
-            left_value * right_sorted.iter().filter(|&n| *n == *left_value).count() as i32;
+        similarity += left_value * right.iter().filter(|&n| *n == *left_value).count() as i32;
     }
 
     /* Print the output */
