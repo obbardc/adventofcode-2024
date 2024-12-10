@@ -1,6 +1,4 @@
-use std::error::Error;
-
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() {
     let mut left = vec![];
     let mut right = vec![];
 
@@ -8,8 +6,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     let filename = "day01-data.txt";
     for line in std::fs::read_to_string(filename).unwrap().lines() {
         let mut parts = line.split_whitespace();
-        left.push(parts.next().ok_or("Missing left value")?.parse::<i32>()?);
-        right.push(parts.next().ok_or("Missing right value")?.parse::<i32>()?);
+        left.push(parts.next().expect("Missing left value").parse::<i32>().expect("Error parsing left value"));
+        right.push(parts.next().expect("Missing right value").parse::<i32>().expect("Error parsing right value"));
     }
 
     /* Sort the lists. */
@@ -36,6 +34,4 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     /* Print the output */
     println!("output: {}, similariy: {}", output, similarity);
-
-    Ok(())
 }
